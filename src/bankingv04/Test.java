@@ -5,18 +5,17 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-
 /*
 컨트롤 클래스로 프로그램의 전반적인 기능을 구현한다.
 
  */
-public class AccountManager {
+public class Test {
 	
 	private HashSet<Account> Accounts;
 	public static Scanner scan = new Scanner(System.in);
 	
 	
-	public AccountManager(int num) {
+	public Test(int num) {
 		Accounts = new HashSet<>();
 	}
 
@@ -35,54 +34,29 @@ public class AccountManager {
 			System.out.println("-----계좌선택-----");
 			System.out.println("1. 보통계좌");
 			System.out.println("2. 신용신뢰계좌");
-			
 			int choice1 = scan.nextInt();
 			scan.nextLine();
 			
-			if(choice1 < 1 || choice1 > 2) {
-				System.out.println("잘못된 입력입니다.");
-				return;
-			}
 			
-			
-			System.out.print("계좌번호 : "); mNum = scan.nextLine();
-			System.out.print("고객이름 : "); mOwner = scan.nextLine();
-			System.out.print("잔고 : "); mBalance = scan.nextInt();
-			scan.nextLine();
-			
-			if( choice1 == 1 ) {
+			if( choice1 == 1) {
+				System.out.print("계좌번호 : "); mNum = scan.nextLine();
+				System.out.print("고객이름 : "); mOwner = scan.nextLine();
+				System.out.print("잔고 : "); mBalance = scan.nextInt();
+				scan.nextLine();
 				System.out.println("기본이자%(정수형태로입력) : ");
 				mInt = scan.nextInt();
 				scan.nextLine();
 				
 				NormalAccount NA = new NormalAccount(mNum, mOwner, mBalance, mInt);
 				
-				if(Accounts.add(NA) == false) {
-					System.out.println("중복계좌발견됨. 덮어쓸까요?(y or n)");
-					String Over = scan.nextLine();
-					if(Over.equalsIgnoreCase("Y")) {
-						Iterator<Account> itrr = Accounts.iterator();
-						while(itrr.hasNext()) {
-							Account account = itrr.next();
-							
-							if((account.getAccNum()).equals(NA.getAccNum())== true) {
-								Accounts.remove(account);
-								Accounts.add(NA);
-								System.out.println("새로운 정보로 갱신되었습니다.");
-							}
-						}
-					}
-					else if(Over.equalsIgnoreCase("N")) {
-						System.out.println("덮어쓰기를 취소합니다. 메뉴로 복귀합니다.");
-						return;
-					}
-					else {
-						System.out.println("잘못된 입력입니다. 메뉴로 복귀합니다.");
-						return;
-					}
-				}
+				Accounts.add(NA);
+				
 			}
 			else if( choice1 == 2) {
+				System.out.print("계좌번호 : "); mNum = scan.nextLine();
+				System.out.print("고객이름 : "); mOwner = scan.nextLine();
+				System.out.print("잔고 : "); mBalance = scan.nextInt();
+				scan.nextLine();
 				System.out.println("기본이자%(정수형태로입력) : ");
 				mInt = scan.nextInt();
 				scan.nextLine();
@@ -94,30 +68,7 @@ public class AccountManager {
 						new HighCreditAccount(
 								mNum, mOwner, mBalance, mInt, mCredit);
 				
-				if(Accounts.add(CA) == false) {
-					System.out.println("중복계좌발견됨. 덮어쓸까요?(y or n)");
-					String Over = scan.nextLine();
-					if(Over.equalsIgnoreCase("Y")) {
-						Iterator<Account> itrr = Accounts.iterator();
-						while(itrr.hasNext()) {
-							Account account = itrr.next();
-							
-							if((account.getAccNum()).equals(CA.getAccNum())== true) {
-								Accounts.remove(account);
-								Accounts.add(CA);
-								System.out.println("새로운 정보로 갱신되었습니다.");
-							}
-						}
-					}
-					else if(Over.equalsIgnoreCase("N")) {
-						System.out.println("덮어쓰기를 취소합니다. 메뉴로 복귀합니다.");
-						return;
-					}
-					else {
-						System.out.println("잘못된 입력입니다. 메뉴로 복귀합니다.");
-						return;
-					}
-				}
+				Accounts.add(CA);
 			}
 			else {
 				System.out.println("잘못입력하셨습니다.");
@@ -296,31 +247,6 @@ public class AccountManager {
 			System.out.println("##전체계좌정보가 출력되었습니다.");
 		
 	}
-	
-	public void deleteAccount() {
-//		System.out.println("## deleteIno 호출됨 ##");
-		System.out.print("삭제할 계좌번호를 입력하세요.");
-		System.out.println("계좌번호 : ");
-		String dNum = scan.nextLine();
-		//삭제 여부 판단
-		int deleteIndex = -1;
-		
-		Iterator<Account> itr = Accounts.iterator(); //1
-		while(itr.hasNext()) { //2
-			Account account = itr.next(); //3
-			if(dNum.equals(account.getAccNum())) {
-				Accounts.remove(account);
-				System.out.println("계좌를 삭제하였습니다.");
-				deleteIndex = 0;
-			}
-		}
-		if(deleteIndex == -1) {
-			System.out.println("## 삭제된 데이터가 없습니다. ##");
-		}
-	}
-	
-	
-	
 	
 }
 

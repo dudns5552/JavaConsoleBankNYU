@@ -10,14 +10,16 @@ public class BankingSystemMain {
 
 	public static Scanner scan = new Scanner(System.in);
 
+
 	public static void menuShow() {
 		System.out.println(
-				"########## 메뉴를 입력하세요(ver02)##########");
+				"########## 메뉴를 입력하세요(ver04)##########");
 		System.out.print("1. 계좌 개설 ");
-		System.out.println("2. 입금");
-		System.out.print("3. 출금 ");
-		System.out.println("4. 전체계좌정보 출력");
-		System.out.println("5. 프로그램종료");
+		System.out.print("2. 입금");
+		System.out.println("3. 출금 ");
+		System.out.print("4. 전체계좌정보 출력 ");
+		System.out.println("5. 계좌삭제");
+		System.out.println("6. 프로그램종료");
 		System.out.print("메뉴선택 >>>");
 	}
 	
@@ -57,6 +59,9 @@ public class BankingSystemMain {
 					AM.showAccInfo();
 					break;
 				case 5:
+					AM.deleteAccount();
+					break;
+				case 6:
 					System.out.print("프로그램종료");
 					return;
 				} //switch 끝

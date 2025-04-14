@@ -1,5 +1,7 @@
 package bankingv04;
 
+import java.util.Objects;
+
 /*
 계좌정보를 표현한 클래스로 NormalAccount, 
 HighCreditAccount의 부모클래스가 된다.
@@ -53,4 +55,35 @@ abstract public  class Account {
 		System.out.println("고객이름 : "+ accOwner);
 		System.out.println("잔고 : "+ balance);
 	}
+	
+	
+	@Override
+	public int hashCode() {
+		int returnCode2 = Objects.hash
+				(getAccNum());
+		return returnCode2;
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		Account account= (Account)obj;
+		/*
+		age는 int형이므로 비교연산자를 통해 비교한다. subject는
+		String이므로 equals()를 통해 비교해야 한다.
+		즉, 우리가 정한 기준에 따라 멤버변수간의 값이 동일한지 비교하도록
+		오버라이딩 하면된다. */
+		if( account.getAccNum().equals(this.getAccNum())) {
+			/*
+			모든내용이 일치하면 true를 반환한다. 
+			그러면 set에는 추가되지 않는다. */
+				return true;
+			}
+		else {
+			//내용이 다르다면 add에 성공하게된다.
+			return false;
+		}
+	}
+	
+	
 }
