@@ -224,6 +224,7 @@ public class AccountManager {
 		Iterator itr = Accounts.iterator();
 		while( itr.hasNext()){
 			Account account = itr.next();
+			/****************/
 		}
 			System.out.println("##전체계좌정보가 출력되었습니다.");
 		
