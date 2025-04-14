@@ -28,43 +28,53 @@ public class AccountManager {
 		int mBalance;
 		int mInt;
 		String mCredit;
-		//공통 정보 3가지를 입력받음
+
 		System.out.println("***신규계좌개설***");
-		System.out.println("-----계좌선택-----");
-		System.out.println("1. 보통계좌");
-		System.out.println("2. 신용신뢰계좌");
-		int choice = scan.nextInt();
-		scan.nextLine();
-		
-		
-		System.out.print("계좌번호 : "); mNum = scan.nextLine();
-		System.out.print("고객이름 : "); mOwner = scan.nextLine();
-		System.out.print("잔고 : "); mBalance = scan.nextInt();
-		scan.nextLine();
-		
-		if( choice == 1) {
-			System.out.println("기본이자%(정수형태로입력) : ");
-			mInt = scan.nextInt();
+		try {
+			System.out.println("-----계좌선택-----");
+			System.out.println("1. 보통계좌");
+			System.out.println("2. 신용신뢰계좌");
+			int choice1 = scan.nextInt();
 			scan.nextLine();
 			
-			NormalAccount NA = new NormalAccount(mNum, mOwner, mBalance, mInt);
 			
-			Accounts.add(NA);
 			
+			System.out.print("계좌번호 : "); mNum = scan.nextLine();
+			System.out.print("고객이름 : "); mOwner = scan.nextLine();
+			System.out.print("잔고 : "); mBalance = scan.nextInt();
+			scan.nextLine();
+			
+			if( choice1 == 1) {
+				System.out.println("기본이자%(정수형태로입력) : ");
+				mInt = scan.nextInt();
+				scan.nextLine();
+				
+				NormalAccount NA = new NormalAccount(mNum, mOwner, mBalance, mInt);
+				
+				Accounts.add(NA);
+				
+			}
+			else if( choice1 == 2) {
+				System.out.println("기본이자%(정수형태로입력) : ");
+				mInt = scan.nextInt();
+				scan.nextLine();
+				
+				System.out.println("신용등급(A,B,C등급) : ");
+				mCredit = scan.nextLine();
+				
+				HighCreditAccount CA = 
+						new HighCreditAccount(
+								mNum, mOwner, mBalance, mInt, mCredit);
+				
+				Accounts.add(CA);
+			}
+			else {
+				System.out.println("잘못입력하셨습니다.");
+				return;
+			}
 		}
-		else if( choice == 2) {
-			System.out.println("기본이자%(정수형태로입력) : ");
-			mInt = scan.nextInt();
-			scan.nextLine();
-			
-			System.out.println("신용등급(A,B,C등급) : ");
-			mCredit = scan.nextLine();
-			
-			HighCreditAccount CA = 
-					new HighCreditAccount(
-							mNum, mOwner, mBalance, mInt, mCredit);
-			
-			Accounts.add(CA);
+		catch (InputMismatchException e) {
+			System.out.println("잘못입력하셨습니다.");
 		}
 
 		System.out.println("계좌계설이 완료되었습니다.");
@@ -221,10 +231,16 @@ public class AccountManager {
 	public void showAccInfo() {
 		System.out.println("## showAllData 호출됨 ##");
 		
+		
 		Iterator itr = Accounts.iterator();
 		while( itr.hasNext()){
-			Account account = itr.next();
-			/****************/
+			Object account = itr.next();
+			if(account instanceof NormalAccount) {
+				((NormalAccount)account).showAccData();
+			}
+			else if(account instanceof HighCreditAccount) {
+				((HighCreditAccount)account).showAccData();
+			}
 		}
 			System.out.println("##전체계좌정보가 출력되었습니다.");
 		
