@@ -19,8 +19,9 @@ public class BankingSystemMain {
 		System.out.println("3. 출금 ");
 		System.out.print("4. 전체계좌정보 출력 ");
 		System.out.println("5. 계좌삭제 ");
-		System.out.print("6. 자동저장옵션");
-		System.out.println("7. 프로그램종료");
+		System.out.print("6. 자동저장옵션 ");
+		System.out.print("7. 3by3 게임 ");
+		System.out.println("8. 프로그램종료");
 		System.out.print("메뉴선택 >>>");
 	}
 	
@@ -30,7 +31,6 @@ public class BankingSystemMain {
 		AccountManager AM = new AccountManager(50);
 		ObjectOutputStream Out = new ObjectOutputStream();
 		ObjectInputStream In = new ObjectInputStream();
-		Threeby3 TG = new Threeby3();
 
 		In.readAcc();
 
@@ -70,7 +70,8 @@ public class BankingSystemMain {
 					AM.asSubMenu();
 					break;
 				case 7:
-//					TG.
+					Threeby3.play();
+					break;
 				case 8:
 					System.out.print("프로그램종료");
 					Out.saveAcc();
@@ -78,7 +79,7 @@ public class BankingSystemMain {
 				} //switch 끝
 			}//try 끝
 			catch (InputMismatchException e) {
-				System.out.println("메뉴는 1~7 사이의 \"정수만\" 입력해주세요");
+				System.out.println("메뉴는 1~8 사이의 \"정수만\" 입력해주세요");
 			}
 		} //while 끝
 	} //main 끝
