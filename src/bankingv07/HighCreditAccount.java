@@ -8,22 +8,13 @@ public class HighCreditAccount extends Account{
 	
 	int nomInt;
 	String Credit;
-	int HCInt = 0;
+	int HCInt;
 	
-	public HighCreditAccount(String accNum, String accOwner, int balance, int nomInt, String credit) {
+	public HighCreditAccount(String accNum, String accOwner, int balance, int nomInt, String credit, int hCInt) {
 		super(accNum, accOwner, balance);
 		this.nomInt = nomInt;
 		Credit = credit;
-		
-		if (credit == "A" || credit == "a") {
-			HCInt = 7;
-		}
-		else if (credit == "B" || credit == "b") {
-			HCInt = 4;
-		}
-		else if (credit == "C" || credit == "c") {
-			HCInt = 2;
-		}
+		HCInt = hCInt;
 	}
 
 	

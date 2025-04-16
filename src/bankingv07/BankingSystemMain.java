@@ -19,7 +19,7 @@ public class BankingSystemMain {
 		System.out.println("3. 출금 ");
 		System.out.print("4. 전체계좌정보 출력 ");
 		System.out.println("5. 계좌삭제 ");
-		System.out.print("6. 자동저장옵션");
+		System.out.print("6. 자동저장옵션 ");
 		System.out.println("7. 프로그램종료");
 		System.out.print("메뉴선택 >>>");
 	}
@@ -38,7 +38,6 @@ public class BankingSystemMain {
 			menuShow();
 			int choice = scan.nextInt();
 			scan.nextLine();
-			
 			if(choice < 1 || 7 < choice) {
 			MenuSelectException ex = new MenuSelectException();
 			throw ex;

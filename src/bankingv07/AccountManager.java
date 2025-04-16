@@ -15,7 +15,7 @@ public class AccountManager {
 	
 	static HashSet<Account> Accounts;
 	public static Scanner scan = new Scanner(System.in);
-	
+	AutoSaver AS;
 	
 	public AccountManager(int num) {
 		Accounts = new HashSet<>();
@@ -76,11 +76,26 @@ public class AccountManager {
 				mInt = scan.nextInt();
 				scan.nextLine();
 				
+				int mHInt = 0;
+				
 				System.out.println("신용등급(A,B,C등급) : ");
 				mCredit = scan.nextLine();
+				if(mCredit.equalsIgnoreCase("a")) {
+					mHInt = 7;
+				}
+				else if(mCredit.equalsIgnoreCase("b")) {
+					mHInt = 4;
+				}
+				else if(mCredit.equalsIgnoreCase("c")) {
+					mHInt = 2;
+				}
+				else {
+					System.out.println("[ 신용등급 ] 입력오류");
+					return;
+				}
 				
 				MA = new HighCreditAccount(
-								mNum, mOwner, mBalance, mInt, mCredit);
+								mNum, mOwner, mBalance, mInt, mCredit, mHInt);
 				
 				
 			}
@@ -110,12 +125,12 @@ public class AccountManager {
 					return;
 				}
 			}
+			System.out.println("계좌계설이 완료되었습니다.");
 		}
 		catch (InputMismatchException e) {
 			System.out.println("잘못입력하셨습니까?");
+			scan.nextLine();
 		}
-
-		System.out.println("계좌계설이 완료되었습니다.");
 	}	
 	
 	/*
@@ -138,6 +153,7 @@ public class AccountManager {
 			System.out.println("입금액 : ");
 			dpMoney = scan.nextInt();
 			scan.nextLine();
+			scan.next();
 		}
 		catch (InputMismatchException e) {
 			System.out.println("입금액은 숫자로 입력해주세요.");
@@ -293,7 +309,6 @@ public class AccountManager {
 	}
 	
 	void asSubMenu() {
-		AutoSaver AS = new AutoSaver();
 		
 		System.out.println("----------저장옵션---------");
 		System.out.print("1. 자동저장 on   2. 자동저장 off");
@@ -302,6 +317,10 @@ public class AccountManager {
 		
 		try {
 			if(op == 1) {
+				if(AS==null) {
+					AS = new AutoSaver();
+				}
+				
 				if(AS.isAlive()) {
 					System.out.println("경고 : 이미 자동저장이 실행중입니다.");
 					return;

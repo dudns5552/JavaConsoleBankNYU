@@ -19,7 +19,7 @@ public class ShowAll extends MyConnection {
 				문자인 경우 자동으로 싱글쿼테이션을 추가하게 되므로
 				|| 연산자를 추가해서 쿼리문을 작성해야한다. */
 				String sql = "SELECT * FROM banking "
-						+ " ORDER BY idx";
+						+ " ORDER BY idx desc";
 				
 				psmt = con.prepareStatement(sql);
 				rs = psmt.executeQuery();

@@ -34,7 +34,6 @@ public class AutoSaver extends Thread {
 	
 	@Override
 	public void run() {
-		
 		/*
 		무한 루프로 구성되어있고 별도의 탈출조건을 만들지 않는다.
 		3초에 한번씩 block상태로 돌아간다. */
