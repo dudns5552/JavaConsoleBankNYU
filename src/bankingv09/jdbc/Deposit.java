@@ -4,8 +4,8 @@ import java.sql.SQLException;
 
 public class Deposit extends MyConnection {
 
-	public Deposit(String user, String pass) {
-		super(user, pass);
+	public Deposit() {
+		super("education", "1234");
 	}
 	
 	String query;

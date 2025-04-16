@@ -6,10 +6,10 @@ import java.sql.SQLException;
 public class MakeAcc extends MyConnection {
 	
 	//생성자 : 매개변수로 계정 정보를 받음
-	public MakeAcc (String user, String pass) {
+	public MakeAcc () {
 		/*
 		부모클래스의 생성자를 호출한다. 이때 DB에 연결된다. */
-		super(user, pass);
+		super("education", "1234");
 	}
 	
 	//멤버변수

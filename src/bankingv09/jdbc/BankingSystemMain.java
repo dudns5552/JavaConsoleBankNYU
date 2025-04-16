@@ -16,7 +16,9 @@ public class BankingSystemMain {
 		System.out.println("2. 입금");
 		System.out.print("3. 출금 ");
 		System.out.println("4. 전체계좌정보 출력");
-		System.out.println("5. 프로그램종료");
+		System.out.print("5. 지정계좌정보 출력 ");
+		System.out.println("6. 계좌삭제");
+		System.out.println("7. 프로그램종료");
 		System.out.print("메뉴선택 >>>");
 	}
 	
@@ -48,23 +50,30 @@ public class BankingSystemMain {
 			switch(choice) {
 			case 1:
 				//계좌의 정보 입력
-				new MakeAcc("education", "1234").dbExecute();
+				new MakeAcc().dbExecute();
 				break;
 			case 2:
 				//입금 메뉴
-				new Deposit("education", "1234").dbExecute();
+				new Deposit().dbExecute();
 				break;
 			case 3:
 				//출금 메뉴
-				AM.withdrawMoney();
+				new Withdraw().dbExecute();;
 				break;
 			case 4:
 				//전체계좌정보 출력
-				AM.showAccInfo();
+				new ShowAll().dbExecute();;
 				break;
 			case 5:
+				//검색계좌정보 출력
+				new ScAcc().dbExecute();
+				break;
+			case 6:
+				new delAcc().dbExecute();
+				break;
+			case 7:
 				System.out.print("프로그램종료");
-				return;
+				System.exit(0);
 			} //switch 끝
 		} //while 끝
 	} //main 끝
