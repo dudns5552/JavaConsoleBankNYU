@@ -1,6 +1,6 @@
-package bk.schemav02;
 
-public class Comments {
+
+public class Help {
 
 	
 	/*

@@ -18,14 +18,44 @@ public class AccountManager {
 	
 	// 계좌개설을 위한 함수
 		public void makeAccount() {
-			System.out.println("------ 신규계좌 개설 -----");
+			System.out.println("----- 신규계좌 개설 -----");
+			System.out.println("1. 보통계좌   2. 신용계좌");
+			int choice = scan.nextInt();
+			scan.nextLine();
+			
 			System.out.print("계좌번호 : "); String a = scan.nextLine();
 			System.out.print("이    름 : "); String n = scan.nextLine();
 			System.out.print("잔    고 : "); int b = scan.nextInt();
 			scan.nextLine();
 			
-			//신규계좌 생성 및 추가
-			Account ac = new Account(a, n, b);
+			Account ac = null;
+			
+			if( choice == 1) {
+				System.out.print("이자(정수) : "); int inter = scan.nextInt();
+				scan.nextLine();
+				
+				ac = new NormalAccount(a, n, b, inter);
+			}
+			if( choice == 2) {
+				System.out.print("이자(정수) : "); int inter = scan.nextInt();
+				scan.nextLine();
+				System.out.print("신용등급(A, B, C) : "); String credit = scan.nextLine();
+				
+				int HCInt = 0;
+				if(credit.equalsIgnoreCase("a")) {
+					HCInt = 7;					
+				}
+				else if(credit.equalsIgnoreCase("b")) {
+					HCInt = 4;					
+				}
+				else if(credit.equalsIgnoreCase("a")) {
+					HCInt = 2;					
+				}
+				
+				
+				ac = new HighCreditAccount(a, n, b, inter, credit, HCInt);
+			}
+			
 			//계좌정보 저장
 			accounts[accCnt++] = ac;
 			System.out.println("신규계좌 개설 완료");

@@ -41,6 +41,10 @@ public class Account {
 		this.balance = balance;
 	}
 
+	
+	
+	
+	
 	//입금 메소드
 	public void deposit(int dpM) {
 		balance += dpM;

@@ -13,4 +13,21 @@ public class NormalAccount extends Account{
 	}
 	
 	
+	@Override
+	public void deposit(int dpM) {
+		
+		int gb = getBalance();
+		double inter = (double)norInt/100;
+		
+		setBalance
+		(
+			gb + (int)(gb * inter)+ dpM
+				
+		);
+		
+		
+		
+	}
+	
+	
 }

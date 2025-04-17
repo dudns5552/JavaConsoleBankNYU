@@ -17,5 +17,18 @@ public class HighCreditAccount extends Account{
 		HCInt = hCInt;
 	}
 	
+	@Override
+	public void deposit(int dpM) {
+		
+	}
+	
+	@Override
+	public void showAccInfo() {
+		super.showAccInfo();
+		System.out.println("이    자 : " + norInt);
+		System.out.println("신용등급 : " + credit);
+	}
+	
+	
 	
 }
