@@ -1,10 +1,10 @@
-package bk.schemav01;
+package bk.schemav03;
 
 /*
 계좌정보를 표현한 클래스로 NormalAccount, 
 HighCreditAccount의 부모클래스가 된다.
  */
-public class Account {
+public abstract class Account {
 
 	//계좌번호(String형), 이름(String형), 잔액(int형)
 	private String accNum;
@@ -41,10 +41,16 @@ public class Account {
 		this.balance = balance;
 	}
 
+	
+	
+	
+	
 	//입금 메소드
-	public void deposit( int dpM) {
-		balance += dpM;
-	}
+	public abstract void deposit(int dpM);
+	
+	//출금 메소드
+	public abstract void withdraw(int wdM);
+	
 	
 	//계좌정보 출력 메소드
 	public void showAccInfo() {

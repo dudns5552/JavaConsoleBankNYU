@@ -1,4 +1,4 @@
-package bk.schemav02;
+package bk.schemav03;
 
 /*
  Account의 자식클래스로 신용도가 높은 고객에게 개설이 허용되며 

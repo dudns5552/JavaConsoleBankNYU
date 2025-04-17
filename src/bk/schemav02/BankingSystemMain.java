@@ -15,7 +15,6 @@ public class BankingSystemMain {
 	
 
 	public static void showMenu() {
-		System.out.println();
 		System.out.println("----- 은행 프로그램v2.schema -----");
 		System.out.println("1. 계좌계설");
 		System.out.println("2. 입금");

@@ -1,5 +1,6 @@
-package bk.schemav02;
+package bk.schemav03;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -66,34 +67,71 @@ public class AccountManager {
 		}
 		// 입    금
 		public void depositMoney() {
-			System.out.println("-----   입    금   -----");
-			System.out.print("계좌번호 : "); String dAcc = scan.nextLine();
-			System.out.print("입 금 액 : "); int dpM = scan.nextInt();
-			scan.nextLine();
-			
-			for(int i = 0 ; i < accCnt ; i++) {
-				if(accounts[i].getAccNum().equals(dAcc)) {
-					accounts[i].deposit(dpM);
-					
-					System.out.println("입금이 완료되었습니다.");
+			try {
+				System.out.println("-----   입    금   -----");
+				System.out.print("계좌번호 : "); String dAcc = scan.nextLine();
+				System.out.print("입 금 액 : "); int dpM = scan.nextInt();
+				scan.nextLine();
+				
+				if(dpM % 500 != 0) {
+					System.out.println("입금은 500원 단위로만 할수 있습니다.");
+					depositMoney();
 				}
-				else {
-					System.out.println("입금 실패");
+				else if(dpM < 0) {
+					System.out.println("입금액은 양수로 입력해주세요");
+				}
+				
+				
+				for(int i = 0 ; i < accCnt ; i++) {
+					if(accounts[i].getAccNum().equals(dAcc)) {
+						accounts[i].deposit(dpM);
+						
+						System.out.println("입금되었습니다.");
+					}
+					else if(accounts[i].getAccNum().equals(dAcc) == false) {
+						System.out.println("계좌가 존재하지 않습니다.");
+						return;
+					}
+					else {
+						System.out.println("입금 실패 [예외발생]");
+					}
 				}
 			}
-			
+			catch (InputMismatchException e) {
+				System.out.println("[ 문자입력 오류 ] 숫자를 입력해주세요");
+				e.printStackTrace();
+			}
 		}
 		// 출    금
 		public void withdrawMoney() {
-			System.out.println("-----   출    금   -----");
-			System.out.println("계좌번호 : "); String wAcc = scan.nextLine();
-			System.out.println("출 금 액 : "); int wdM = scan.nextInt();
-			scan.nextLine();
-			
-			for(int i = 0 ; i < accCnt ; i++) {
-				if(accounts[i].getAccNum().equals(wAcc)) {
-					accounts[i].withdraw(wdM);
+			try {
+				System.out.println("-----   출    금   -----");
+				System.out.println("계좌번호 : "); String wAcc = scan.nextLine();
+				System.out.println("출 금 액 : "); int wdM = scan.nextInt();
+				scan.nextLine();
+				
+				if(wdM < 0) {
+					System.out.println("출금액은 양수로 입력해주세요");
+					withdrawMoney();
 				}
+				else if(wdM % 1000 != 0) {
+					System.out.println("출금은 1000원 단위로 가능합니다.");
+				}
+				else {
+					System.out.println("출금 실패 [예외발생]");
+				}
+				
+				for(int i = 0 ; i < accCnt ; i++) {
+					if(accounts[i].getAccNum().equals(wAcc)) {
+						
+						accounts[i].withdraw(wdM);
+						System.out.println("출금되었습니다.");
+					}
+				}
+			}
+			catch (InputMismatchException e) {
+				System.out.println("[ 문자입력 오류 ] 숫자를 입력해주세요");
+				e.printStackTrace();
 			}
 		} 
 		

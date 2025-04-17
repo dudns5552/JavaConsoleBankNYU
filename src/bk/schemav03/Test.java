@@ -1,4 +1,4 @@
-package bk.schemav02;
+package bk.schemav03;
 
 public class Test {
 
