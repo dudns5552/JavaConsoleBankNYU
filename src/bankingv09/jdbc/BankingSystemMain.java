@@ -25,15 +25,6 @@ public class BankingSystemMain {
 	public static void main(String[] args) {
 
 		/*
-		주소록 관리 프로그램에서 전반적인 기능을 구현하기위한 클래스.
-		이런 클래스를 보통 핸들러 혹은 메니저 클래스라고 한다. */
-		
-		/* 
-		 무한루프로 while문 작성. 프로그램을 종료할때까지는 무한히
-		 반복하며 친구의 정보를 입력, 수정, 삭제, 검색을 하게된다. */
-		
-		
-		/*
 		void showMenu();       // 메뉴출력
 		void makeAccount();    // 계좌개설을 위한 함수
 		void depositMoney();    // 입    금
