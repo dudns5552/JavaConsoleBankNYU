@@ -6,7 +6,7 @@ interface로 생성한다.
 메뉴 : 계좌개설, 입금, 출금, 전체계좌정보출력, 종료를 1~5까지로 지정한다.
 이자율 : 고객의 신용등급을 A, B, C로 나눠서 7%, 4%, 2%로 지정한다.
  */
-interface ICustomDefine {
+interface ICD {
 	
 	//메뉴선택을 위한 상수
 	int MAKE = 1 ;
@@ -15,15 +15,9 @@ interface ICustomDefine {
 	int INQUITE = 4;
 	int EXIT = 5;
 	
-//	A = 7
-//	B = 4
-//	C = 2
-	
-	
-	void makeAccount();
-	void depositMoney();
-	void withdrawMoney();
-	void showAccInfo();
+	int A = 7;
+	int B = 4;
+	int C = 2;
 	
 	
 }

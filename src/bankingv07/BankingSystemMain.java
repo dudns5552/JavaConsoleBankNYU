@@ -13,7 +13,7 @@ public class BankingSystemMain {
 
 	public static void menuShow() {
 		System.out.println(
-				"########## 메뉴를 입력하세요(ver04)##########");
+				"########## 메뉴를 입력하세요(ver07)##########");
 		System.out.print("1. 계좌 개설 ");
 		System.out.print("2. 입금 ");
 		System.out.println("3. 출금 ");

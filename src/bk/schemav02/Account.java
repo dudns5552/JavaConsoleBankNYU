@@ -1,4 +1,4 @@
-package bk.schemav01;
+package bk.schemav02;
 
 /*
 계좌정보를 표현한 클래스로 NormalAccount, 

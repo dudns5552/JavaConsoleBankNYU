@@ -2,7 +2,6 @@ package bankingv07;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 
 
 public class ObjectOutputStream {
@@ -18,10 +17,8 @@ public class ObjectOutputStream {
 							new FileOutputStream(
 									"src/bankingv07/AccountInfo.obj"));
 			
-			Iterator<Account> itr = AccountManager.Accounts.iterator();
-			while(itr.hasNext()) {
-				Account account = itr.next();
-				out.writeObject(account);
+			for (Account acc : AccountManager.Accounts) {
+				out.writeObject(acc);
 			}
 			out.close();
 		}

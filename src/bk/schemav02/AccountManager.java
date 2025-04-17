@@ -1,4 +1,4 @@
-package bk.schemav01;
+package bk.schemav02;
 
 import java.util.Scanner;
 

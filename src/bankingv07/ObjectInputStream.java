@@ -27,6 +27,7 @@ public class ObjectInputStream {
 				try {
 					Account	account = (Account)in.readObject();
 					AccountManager.Accounts.add(account);
+					
 				} 
 				catch (EOFException e) {
 					break; // 파일 끝에 도달하면 루프 종료

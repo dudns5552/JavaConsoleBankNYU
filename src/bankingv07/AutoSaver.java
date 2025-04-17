@@ -30,8 +30,6 @@ import java.util.Scanner;
  */
 public class AutoSaver extends Thread {
 	
-	Scanner scan = new Scanner(System.in);
-	
 	@Override
 	public void run() {
 		/*
@@ -44,24 +42,29 @@ public class AutoSaver extends Thread {
 				버퍼에 따라 성능의 차이가 크기때문에 버퍼 필터 스트림을
 				추가로 연결해서 인스턴스를 생성한다. */
 				BufferedWriter out = new BufferedWriter(
-						new FileWriter("src/bankingv06/AutoSaveAccount.txt"));
+						new FileWriter("src/bankingv07/AutoSaveAccount.txt"));
 				/*
 				write를 통해 문자열을 저장하고, 줄바꿈은 newLine을
 				통해 처리한다. OS별로 개행문자가 다르기 때문에 이 메서드를
 				통해 줄바꿈 처리를 해야한다. */
 				
-				Iterator<Account> itr = AccountManager.Accounts.iterator();
-				while(itr.hasNext()) {
-					Account account = itr.next();
-					if(account instanceof NormalAccount) {
-						out.write(((NormalAccount)account).toString());
-						out.newLine();
-					}
-					else if(account instanceof HighCreditAccount) {
-						out.write(((HighCreditAccount)account).toString());
-						out.newLine();
-					}
+				for(Account acc : AccountManager.Accounts) {
+					out.write(acc.toString());
 				}
+				
+				
+//				Iterator<Account> itr = AccountManager.Accounts.iterator();
+//				while(itr.hasNext()) {
+//					Account account = itr.next();
+//					if(account instanceof NormalAccount) {
+//						out.write(((NormalAccount)account).toString());
+//						out.newLine();
+//					}
+//					else if(account instanceof HighCreditAccount) {
+//						out.write(((HighCreditAccount)account).toString());
+//						out.newLine();
+//					}
+//				}
 				out.close();
 				sleep(5000);
 				System.out.println("(자동저장) 계좌정보를 텍스트로 저장되었습니다.");
@@ -73,7 +76,8 @@ public class AutoSaver extends Thread {
 				System.out.println("IO오류");
 			}
 			catch(InterruptedException e) {
-				System.out.println("자동저장시 오류발생 ㅜㅜ");
+				System.out.println("자동저장 종료");
+				break;
 			}
 		}
 	}
