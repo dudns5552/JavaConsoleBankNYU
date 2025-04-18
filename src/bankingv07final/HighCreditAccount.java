@@ -1,4 +1,4 @@
-package bankingv07;
+package bankingv07final;
 
 /*
 Account의 자식클래스로 신용도가 높은 고객에게 개설이 허용되며 높은 이율의 계좌이다.

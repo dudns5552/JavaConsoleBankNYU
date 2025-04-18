@@ -1,4 +1,4 @@
-package bankingv07;
+package bankingv07final;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

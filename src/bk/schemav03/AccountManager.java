@@ -121,11 +121,33 @@ public class AccountManager {
 					System.out.println("출금 실패 [예외발생]");
 				}
 				
-				for(int i = 0 ; i < accCnt ; i++) {
+				
+				
+				
+				
+				for(int i = 0; i < accCnt ; i++) {
 					if(accounts[i].getAccNum().equals(wAcc)) {
+						if((accounts[i].getBalance() - wdM) > 0) {
+							
+							accounts[i].withdraw(wdM);
+							System.out.println("출금되었습니다.");
+						}
+						else if(accounts[i].getBalance() - wdM < 0) {
+							
+							System.out.println("잔액이 부족합니다. 전액 출금 하시겠습니까?");
+							System.out.println("Y) 전액출금   아무키) 출금취소");
+							String allWd = scan.nextLine();
+							
+							if(allWd.equalsIgnoreCase("y")) {
+								accounts[i].withdraw(accounts[i].getBalance());
+								System.out.println("전액출금이 되었습니다.");
+							}
+							else {
+								System.out.println("메뉴로 돌아갑니다.");
+								return;
+							}
+						}
 						
-						accounts[i].withdraw(wdM);
-						System.out.println("출금되었습니다.");
 					}
 				}
 			}

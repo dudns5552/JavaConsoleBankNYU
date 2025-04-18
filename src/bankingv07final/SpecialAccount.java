@@ -1,4 +1,4 @@
-package bankingv07;
+package bankingv07final;
 
 /*
 '특판계좌' 상품으로 입금시마다 기본이자를 지급하는것은 NormalAccount와 동일하지만 
