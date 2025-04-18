@@ -24,35 +24,23 @@ abstract public  class Account implements Serializable{
 		this.balance = balance;
 	}
 
-	public String getAccNum() {
+	public String getAccNum() { //계좌비교할때 필요
 		return accNum;
 	}
-	public void setAccNum(String accNum) {
-		this.accNum = accNum;
-	}
 
-	public String getAccOwner() {
-		return accOwner;
-	}
-	public void setAccOwner(String accOwner) {
-		this.accOwner = accOwner;
-	}
-
-	public int getBalance() {
+	public int getBalance() { //입출금시 필요
 		return balance;
 	}
-	public void setBalance(int balance) {
+	public void setBalance(int balance) { //입출금시 필요
 		this.balance = balance;
 	}
 
 	public abstract void depositCal(int dpMoney);
 
 	public void showAccData() {
-		System.out.println("***계좌정보출력***");
-		System.out.println("-------------");
 		System.out.println("계좌번호 : "+ accNum);
 		System.out.println("고객이름 : "+ accOwner);
-		System.out.println("잔고 : "+ balance);
+		System.out.println("잔    고 : "+ balance);
 	}
 	
 	

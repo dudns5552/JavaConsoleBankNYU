@@ -49,7 +49,9 @@ public abstract class Account {
 	public abstract void deposit(int dpM);
 	
 	//출금 메소드
-	public abstract void withdraw(int wdM);
+	public void withdraw(int wdM) {
+		balance -= wdM;
+	}
 	
 	
 	//계좌정보 출력 메소드

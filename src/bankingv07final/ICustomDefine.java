@@ -8,5 +8,7 @@ interface ICustomDefine {
 	int INQUIRE = 4;
 	int EXIT = 5;
 	
-	
+	int A = 7;
+	int B = 4;
+	int C = 2;
 }

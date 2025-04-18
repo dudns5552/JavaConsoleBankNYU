@@ -19,52 +19,103 @@ public class AccountManager {
 	
 	// 계좌개설을 위한 함수
 		public void makeAccount() {
-			System.out.println("----- 신규계좌 개설 -----");
-			System.out.println("1. 보통계좌   2. 신용계좌");
-			int choice = scan.nextInt();
-			scan.nextLine();
 			
-			System.out.print("계좌번호 : "); String a = scan.nextLine();
-			System.out.print("이    름 : "); String n = scan.nextLine();
-			System.out.print("잔    고 : "); int b = scan.nextInt();
-			scan.nextLine();
-			
-			Account ac = null;
-			
-			if( choice == 1) {
-				System.out.print("이자(정수) : "); int inter = scan.nextInt();
+			try {
+				
+				System.out.println("----- 신규계좌 개설 -----");
+				System.out.println("1. 보통계좌   2. 신용계좌");
+				int choice = scan.nextInt();
 				scan.nextLine();
 				
-				ac = new NormalAccount(a, n, b, inter);
-			}
-			if( choice == 2) {
-				System.out.print("이자(정수) : "); int inter = scan.nextInt();
+				System.out.print("계좌번호 : "); String a = scan.nextLine();
+				System.out.print("이    름 : "); String n = scan.nextLine();
+				System.out.print("잔    고 : "); int b = scan.nextInt();
 				scan.nextLine();
-				System.out.print("신용등급(A, B, C) : "); String credit = scan.nextLine();
 				
-				int HCInt = 0;
-				if(credit.equalsIgnoreCase("a")) {
-					HCInt = 7;					
+				if(b < 0) {
+					System.out.println("잔고는 양수로 입력해주세요");
+					return;
 				}
-				else if(credit.equalsIgnoreCase("b")) {
-					HCInt = 4;					
+				else if(!a.matches("//d+")) {
+					System.out.println("계좌번호는 숫자만 입력해주세요");
+					return;
 				}
-				else if(credit.equalsIgnoreCase("c")) {
-					HCInt = 2;					
-				}
-				else {
-					System.out.println("잘못된 입력입니다.");
+				else if(!n.matches("[a-zA-Z가-힣]+")) {
+					System.out.println("이름엔 문자만 입력해주세요.");
 					return;
 				}
 				
 				
-				ac = new HighCreditAccount(a, n, b, inter, credit, HCInt);
+				Account ac = null;
+				int inter = 0;
+				
+				
+				switch(choice) {
+				
+				case 1:
+					
+					System.out.print("이자(정수 0~10 ) : "); inter = scan.nextInt();
+					scan.nextLine();
+					
+					if(inter < 0 || 10 < inter) {
+						System.out.println("이자는 0 ~ 10으로 입력해주세요");
+					}
+					
+					
+					ac = new NormalAccount(a, n, b, inter);
+					break;
+					
+				case 2:
+					System.out.print("이자(정수 0~10 ) : "); inter = scan.nextInt();
+					scan.nextLine();
+					System.out.print("신용등급(A, B, C) : "); String credit = scan.nextLine();
+					
+					int HCInt = 0;
+					if(credit.equalsIgnoreCase("a")) {
+						HCInt = 7;					
+					}
+					else if(credit.equalsIgnoreCase("b")) {
+						HCInt = 4;					
+					}
+					else if(credit.equalsIgnoreCase("c")) {
+						HCInt = 2;					
+					}
+					else if(inter < 0 || 10 < inter) {
+						System.out.println("이자는 0~10으로 입력해주세요");
+					}
+					else {
+						System.out.println("잘못된 입력입니다.");
+						return;
+					}
+					
+					ac = new HighCreditAccount(a, n, b, inter, credit, HCInt);
+					break;
+					
+				default:
+					System.out.println("잘못된 입력입니다.");
+					makeAccount();
+				}
+				
+				//계좌정보 저장
+				accounts[accCnt++] = ac;
+				
+				//저장 확인 및 알림
+				for(int i = 0 ; i < accCnt ; i++) {
+					if(ac.equals(accounts[i])) {
+						System.out.println("신규계좌 개설 완료");
+						return;
+					}
+				}
+				
+				System.out.println("계좌개설에 실패하였습니다.");
+			}
+			catch (InputMismatchException e) {
+				System.out.println("숫자를 입력해주세요.");
 			}
 			
-			//계좌정보 저장
-			accounts[accCnt++] = ac;
-			System.out.println("신규계좌 개설 완료");
-		}
+		}//계좌 개설 끝
+		
+		
 		// 입    금
 		public void depositMoney() {
 			try {
@@ -151,7 +202,7 @@ public class AccountManager {
 						}//전액출금 else 끝
 					}//계좌비교 if 끝
 				}//for 끝
-			}//try 끝
+			}//try 끝 
 			catch (InputMismatchException e) {
 				System.out.println("[ 문자입력 오류 ] 숫자를 입력해주세요");
 				e.printStackTrace();

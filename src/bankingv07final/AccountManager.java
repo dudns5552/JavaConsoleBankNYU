@@ -15,36 +15,29 @@ public class AccountManager {
 	
 	static HashSet<Account> Accounts;
 	public static Scanner scan = new Scanner(System.in);
-	AutoSaver AS;
+	AutoSaver AS = null;
+
+	
 	
 	public AccountManager(int num) {
 		Accounts = new HashSet<>();
 	}
 
 
-	
-	public static void setAccounts(HashSet<Account> accounts) {
-		Accounts = accounts;
-	}
-	public static HashSet<Account> getAccounts() {
-		return Accounts;
-	}
-
-
 	public void makeAccount() {
+//		System.out.println("## makeAccount 호출됨 ##");
 		
-		System.out.println("## makeAccount 호출됨 ##");
+		
 		//입력값을 저장할 변수 생성
 		String mNum, mOwner;
 		int mBalance;
-		int mInt;
 		String mCredit;
 		Account MA = null;
 
 		
-		System.out.println("***신규계좌개설***");
 		try {
-			System.out.println("-----계좌선택-----");
+			System.out.println("=== 신규계좌개설 ===");
+			System.out.println("----- 계좌선택 -----");
 			System.out.println("1. 보통계좌");
 			System.out.println("2. 신용신뢰계좌");
 			System.out.println("3. 특판계좌");
@@ -58,80 +51,95 @@ public class AccountManager {
 			}
 			
 			
+			
+			
 			System.out.print("계좌번호 : "); mNum = scan.nextLine();
+			if(mNum.matches(".*[a-zA-Z가-힣.-].*")) {
+				System.out.println("계좌번호는 양의 정수만 입력해주세요");
+				return;
+			}
+			
 			System.out.print("고객이름 : "); mOwner = scan.nextLine();
+			if(!mOwner.matches("[a-zA-Z가-힣ㄱ-ㅎ]+")) {
+				System.out.println("이름엔 문자만 입력해주세요.");
+				return;
+			}
+			
 			System.out.print("잔고 : "); mBalance = scan.nextInt();
 			scan.nextLine();
+			if(mBalance < 0) {
+				System.out.println("잔고는 양의 정수로 입력해주세요");
+				return;
+			}
+			
+			System.out.print("기본이자(0 ~ 10) : ");
+			int mInt = scan.nextInt();
+			scan.nextLine();
+			if(mInt < 0 || 10 < mInt) {
+				System.out.println("기본이자는 0~10으로 입력해주세요.");
+				return;
+			}
+			
 			
 			if( choice1 == 1 ) {
-				System.out.println("기본이자%(정수형태로입력) : ");
-				mInt = scan.nextInt();
-				scan.nextLine();
 				
 				MA = new NormalAccount(mNum, mOwner, mBalance, mInt);
 				
-			}
+			} //일반계좌 끝
 			else if( choice1 == 2) {
-				System.out.println("기본이자%(정수형태로입력) : ");
-				mInt = scan.nextInt();
-				scan.nextLine();
 				
-				int mHInt = 0;
-				
-				System.out.println("신용등급(A,B,C등급) : ");
+				System.out.print("신용등급(A,B,C등급) : ");
 				mCredit = scan.nextLine();
-				if(mCredit.equalsIgnoreCase("a")) {
-					mHInt = 7;
-				}
-				else if(mCredit.equalsIgnoreCase("b")) {
-					mHInt = 4;
-				}
-				else if(mCredit.equalsIgnoreCase("c")) {
-					mHInt = 2;
+				
+				if(mCredit.equalsIgnoreCase("A") || 
+						mCredit.equalsIgnoreCase("B") ||
+						mCredit.equalsIgnoreCase("C")) {
+					MA = new HighCreditAccount(
+							mNum, mOwner, mBalance, mInt, mCredit);
 				}
 				else {
-					System.out.println("[ 신용등급 ] 입력오류");
+					System.out.println("잘못된 입력입니다.");
 					return;
 				}
+			} //신용신뢰계좌 끝
 				
-				MA = new HighCreditAccount(
-								mNum, mOwner, mBalance, mInt, mCredit, mHInt);
-				
-				
-			}
 			else if( choice1 == 3 ) {
-				System.out.println("기본이자%(정수형태로입력) : ");
-				mInt = scan.nextInt();
-				scan.nextLine();
 				
 				MA = new SpecialAccount(mNum, mOwner, mBalance, mInt);
-			}
+			}//특판계좌 끝
 			
 			if(Accounts.add(MA) == false) {
-				System.out.println("중복계좌발견됨. 덮어쓸까요?(y or n)");
+				System.out.print("중복계좌발견됨. 덮어쓸까요?"
+						+ "\n (Y or N)");
 				String Over = scan.nextLine();
 				
-				if(Over.equalsIgnoreCase("Y")) {
+				switch(Over.toUpperCase()) {
+				
+				case "Y": 
 					Accounts.remove(MA);
 					Accounts.add(MA);
 					System.out.println("새로운 정보로 갱신되었습니다.");
-				}
-				else if(Over.equalsIgnoreCase("N")) {
-					System.out.println("덮어쓰기를 취소합니다. 메뉴로 복귀합니다.");
 					return;
-				}
-				else {
+				case "N":
+						System.out.println("덮어쓰기를 취소합니다. 메뉴로 복귀합니다.");
+						return;
+				default:
 					System.out.println("잘못된 입력입니다. 메뉴로 복귀합니다.");
 					return;
-				}
+						
+				}//switch 끝
+			}//중복계좌발견 끝
+			else {
+				Accounts.add(MA);
+				System.out.println("계좌계설이 완료되었습니다.");
 			}
-			System.out.println("계좌계설이 완료되었습니다.");
-		}
+			
+		}//try끝
 		catch (InputMismatchException e) {
 			System.out.println("잘못입력하셨습니까?");
 			scan.nextLine();
 		}
-	}	
+	}//계좌 개설 끝
 	
 	/*
 	입금 : 
@@ -142,18 +150,17 @@ public class AccountManager {
 	*/
 	public void depositMoney() {
 		
-		System.out.println("***입  금***");
+		System.out.println("===== 입  금 =====");
 		
 		boolean isFind = false;
 		System.out.println("입금하실 계좌와 금액을 입력하세요.");
-		System.out.println("계좌번호 : ");
+		System.out.print("계좌번호 : ");
 		String dpAcc = scan.nextLine();
 		int dpMoney =0;
 		try {
-			System.out.println("입금액 : ");
+			System.out.print("입금액 : ");
 			dpMoney = scan.nextInt();
 			scan.nextLine();
-			scan.next();
 		}
 		catch (InputMismatchException e) {
 			System.out.println("입금액은 숫자로 입력해주세요.");
@@ -172,9 +179,8 @@ public class AccountManager {
 		
 		for(Account ac : Accounts) {
 			
-			if(dpAcc.equals(ac.getAccNum())) {
-				Account dAcc = ac;
-				dAcc.depositCal(dpMoney);	
+			if(dpAcc.compareTo(ac.accNum) == 0) {
+				ac.depositCal(dpMoney);	
 				System.out.println("입금이 완료되었습니다.");
 				isFind = true;
 			}
@@ -184,7 +190,7 @@ public class AccountManager {
 			System.out.println("##찾는 계좌가 없습니다.##");
 			return;
 		}
-	}
+	}//입금 끝
 
 	/*
 	출금 : 
@@ -197,94 +203,82 @@ public class AccountManager {
 	 */
 	public void withdrawMoney() {
 		
-		System.out.println("***출  금***");
+		System.out.println("===== 출  금 =====");
 		
 		boolean isFind = false;
 		System.out.println("출금하실 계좌와 금액을 입력하세요.");
-		System.out.println("계좌번호 : ");
-		String wdAcc = scan.nextLine();
+		System.out.print("계좌번호 : "); String wdAcc = scan.nextLine();
 		
-		int wdMoney = 0;
 		
 		try {
-			System.out.println("출금액 : ");
-			wdMoney = scan.nextInt();
+			System.out.print("출금액 : "); int wdMoney = scan.nextInt();
 			scan.nextLine();
+			
+			if (wdMoney < 0) { 
+				System.out.println("출금액은 양수로 입력해주세요.");
+				return;
+			}
+			else if(wdMoney % 1000 != 0) {
+				System.out.println("출금은 1000원 단위로 가능합니다.");
+				return;
+			}
+			
+			//계좌검색
+			for(Account acc : Accounts) {
+				
+				if(wdAcc.compareTo(acc.getAccNum())== 0 ) {
+	//				System.out.println("계좌찾음");
+					isFind = true;
+					
+					if ((acc.getBalance() - wdMoney) >= 0) {
+	//					System.out.println("출금 가능");
+						
+						acc.setBalance(acc.getBalance() - wdMoney);
+						System.out.println("출금이 완료되었습니다.");
+					}
+					else if((acc.getBalance() - wdMoney) < 0){
+	//					System.out.println("출금 불가능");
+						
+						System.out.println("잔고가 부족합니다. 전액을 출금할까요?");
+						System.out.println("Y) 전액출금    아무키) 출금취소");
+						String YN = scan.nextLine();
+						if(YN.equalsIgnoreCase("Y")) {
+							acc.setBalance(0);
+							System.out.println("전액 출금되었습니다.");
+						}
+						else {
+							System.out.print("출금을 취소합니다. ");
+							System.out.println("메뉴로 돌아갑니다.");
+							return;
+						}
+					}//출금 if 끝
+				}//계좌검색 if 끝
+			}//for문 끝
+		
+			if(isFind == false) {
+				System.out.println("##찾는 계좌가 없습니다.##");
+			}
 		}
 		catch (InputMismatchException e) {
 			System.out.println("출금액은 \"숫자로\" 입력해주세요.");
 			return;
 		}
-		
-		if (wdMoney < 0) {
-			System.out.println("출금액은 양수로 입력해주세요.");
-			return;
-		}
-		else if(wdMoney % 1000 != 0) {
-			System.out.println("출금은 1000원 단위로 가능합니다.");
-			return;
-		}
-		
-		Iterator<Account> itr = Accounts.iterator();
-		while (itr.hasNext()) {
-			
-			Account account = itr.next();
-			
-			if(wdAcc.compareTo(account.getAccNum())== 0 ) {
-				
-				isFind = true;
-				
-				if ((account.getBalance() - wdMoney) >= 0) {
-					
-					account.setBalance(account.getBalance() - wdMoney);
-					System.out.println("출금이 완료되었습니다.");
-				}
-				else {
-					System.out.println("잔고가 부족합니다. 전액을 출금할까요?");
-					String YN = scan.nextLine();
-					if(YN.equalsIgnoreCase("Y")) {
-						account.setBalance(account.getBalance() - 
-								account.getBalance());
-						System.out.println("전액 출금되었습니다.");
-					}
-					else if (YN.equalsIgnoreCase("N")) {
-						System.out.print("출금을 취소합니다. ");
-					}
-					else {
-						System.out.print("잘못된 입력입니다. ");
-					}
-					System.out.println("메뉴로 돌아갑니다.");
-				}
-			}
-		}
-		
-		if(isFind == false) {
-			System.out.println("##찾는 계좌가 없습니다.##");
-		}
-	}
+	}//withdraw 끝
 	
 	public void showAccInfo() {
-		System.out.println("## showAllData 호출됨 ##");
-		
-		
-		Iterator itr = Accounts.iterator();
-		while( itr.hasNext()){
-			Object account = itr.next();
-			if(account instanceof NormalAccount) {
-				((NormalAccount)account).showAccData();
-			}
-			else if(account instanceof HighCreditAccount) {
-				((HighCreditAccount)account).showAccData();
-			}
+		for(Account acc : Accounts) {
+			acc.showAccData();
 		}
-			System.out.println("##전체계좌정보가 출력되었습니다.");
+		System.out.println("== 전체계좌정보가 출력되었습니다. ==");
+		System.out.println();
 		
-	}
+	}//계좌출력 끝
 	
+	
+	//삭제
 	public void deleteAccount() {
-//		System.out.println("## deleteIno 호출됨 ##");
-		System.out.print("삭제할 계좌번호를 입력하세요.");
-		System.out.println("계좌번호 : ");
+		System.out.println("삭제할 계좌번호를 입력하세요.");
+		System.out.print("계좌번호 : ");
 		String dNum = scan.nextLine();
 		//삭제 여부 판단
 		int deleteIndex = -1;
@@ -294,9 +288,10 @@ public class AccountManager {
 				Accounts.remove(ac);
 				System.out.println("계좌를 삭제하였습니다.");
 				deleteIndex = 0;
+				break;
 			}
 			if(deleteIndex == -1) {
-				System.out.println("## 삭제된 데이터가 없습니다. ##");
+				System.out.println("삭제된 데이터가 없습니다.");
 			}
 		}
 		catch (ConcurrentModificationException e) {
@@ -310,53 +305,41 @@ public class AccountManager {
 	
 	void asSubMenu() {
 		
+		try {
 		System.out.println("----------저장옵션---------");
-		System.out.print("1. 자동저장 on   2. 자동저장 off");
+		System.out.println("1. 자동저장 on   2. 자동저장 off");
 		int op = scan.nextInt();
 		scan.nextLine();
 		
-		try {
+		
+		
 			if(op == 1) {
-				if(AS==null) {
+				if(AS == null) {
 					AS = new AutoSaver();
 				}
-				
 				if(AS.isAlive()) {
 					System.out.println("경고 : 이미 자동저장이 실행중입니다.");
 					return;
 				}
 				else {
-					AS.setDaemon(true);
 					AS.start();
+					System.out.println("자동저장이 시작됩니다.");
 				}
 			}
 			else if(op == 2) {
 				AS.interrupt();
+				AS = null;
 			}
+			else {
+				System.out.println("잘못된 입력입니다. 메뉴로 돌아갑니다.");
+			}
+		}
+		catch (InputMismatchException e) {
+			System.out.println("저장옵션은 1또는 2를 입력해주세요.");
+			return;
 		}
 		catch (Exception e) {}
 	}
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

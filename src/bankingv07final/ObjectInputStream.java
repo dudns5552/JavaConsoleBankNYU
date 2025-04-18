@@ -19,7 +19,7 @@ public class ObjectInputStream {
 			java.io.ObjectInputStream in =
 				new java.io.ObjectInputStream(
 						new FileInputStream(
-								"src/bankingv07/AccountInfo.obj"));
+								"src/bankingv07final/AccountInfo.obj"));
 			/*
 			저장시 Object기반으로 저장되므로 복원시에는 원래의
 			자료형으로 다운캐스팅(강제형변환) 해야한다. */

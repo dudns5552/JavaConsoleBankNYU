@@ -1,48 +1,48 @@
 package bankingv07final;
 
-/*
-Account의 자식클래스로 신용도가 높은 고객에게 개설이 허용되며 높은 이율의 계좌이다.
-생성자를 통해서 이율정보(이자비율의정보)를 초기화 할수있도록 정의한다.
-*/
 public class HighCreditAccount extends Account{
 	
 	int nomInt;
 	String Credit;
-	int HCInt;
 	
-	public HighCreditAccount(String accNum, String accOwner, int balance, int nomInt, String credit, int hCInt) {
+	public HighCreditAccount(String accNum, String accOwner, int balance, int nomInt, String credit) {
 		super(accNum, accOwner, balance);
 		this.nomInt = nomInt;
 		Credit = credit;
-		HCInt = hCInt;
 	}
 
-	
-	
-	public int getNomInt() {
-		return nomInt;
-	}
-
-	public int getHCInt() {
+	//신용등급에 따른 신용이자 계산 함수
+	public int HCInt(String Credit) {
+		int HCInt = 0;
+		if(Credit.equalsIgnoreCase("a")) {
+			HCInt = ICustomDefine.A;
+		}
+		else if(Credit.equalsIgnoreCase("b")) {
+			HCInt = ICustomDefine.B;
+		}
+		else if(Credit.equalsIgnoreCase("c")) {
+			HCInt = ICustomDefine.C;
+		}
 		return HCInt;
+		
 	}
-
+	
 	@Override
 	public void depositCal(int dpMoney) {
-		setBalance(getBalance() + dpMoney +
+		setBalance(getBalance() + dpMoney +	//입금액 계산
 				(int)(getBalance() * 
-			    		((double)getNomInt() / 100)) +
+			    		((double)nomInt / 100)) +	//일반이자 계산
 				(int)((getBalance() * 
-			    		((double)getHCInt() / 100)))
+			    		((double)(HCInt(Credit)) / 100))) //신용이자 계산
 				);
 	}
 
 	@Override
 	public void showAccData() {
+		System.out.println("==== 신용신뢰계좌 ====");
 		super.showAccData();
 		System.out.println("기본이자 : " + nomInt);
 		System.out.println("신용등급 : " + Credit);
-		System.out.println("--------------------------");
 	}
 
 
@@ -50,7 +50,7 @@ public class HighCreditAccount extends Account{
 	@Override
 	public String toString() {
 		return "[ 신용신뢰계좌 ] "+ super.toString() +
-				" nomInt = " + nomInt + ", Credit = " + Credit + ", HCInt = " + HCInt;
+				" nomInt = " + nomInt + ", Credit = " + Credit;
 	}
 
 	

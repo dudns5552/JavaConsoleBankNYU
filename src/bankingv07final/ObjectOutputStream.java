@@ -15,7 +15,7 @@ public class ObjectOutputStream {
 			java.io.ObjectOutputStream out =
 					new java.io.ObjectOutputStream(
 							new FileOutputStream(
-									"src/bankingv07/AccountInfo.obj"));
+									"src/bankingv07final/AccountInfo.obj"));
 			
 			for (Account acc : AccountManager.Accounts) {
 				out.writeObject(acc);
