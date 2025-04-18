@@ -131,6 +131,7 @@ public class AccountManager {
 							
 							accounts[i].withdraw(wdM);
 							System.out.println("출금되었습니다.");
+							return;
 						}
 						else if(accounts[i].getBalance() - wdM < 0) {
 							
@@ -140,17 +141,17 @@ public class AccountManager {
 							
 							if(allWd.equalsIgnoreCase("y")) {
 								accounts[i].withdraw(accounts[i].getBalance());
-								System.out.println("전액출금이 되었습니다.");
-							}
-							else {
-								System.out.println("메뉴로 돌아갑니다.");
+								System.out.printf("%d원이 출금이 되었습니다.", accounts[i].getBalance());
 								return;
 							}
-						}
-						
-					}
-				}
-			}
+							else {
+								System.out.println("출금을 취소합니다. 메뉴로 돌아갑니다.");
+								return;
+							}
+						}//전액출금 else 끝
+					}//계좌비교 if 끝
+				}//for 끝
+			}//try 끝
 			catch (InputMismatchException e) {
 				System.out.println("[ 문자입력 오류 ] 숫자를 입력해주세요");
 				e.printStackTrace();
