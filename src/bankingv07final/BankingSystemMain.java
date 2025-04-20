@@ -35,12 +35,12 @@ public class BankingSystemMain {
 
 		while(true) {
 			
-			menuShow();
-			int choice = scan.nextInt();
-			scan.nextLine();
+			try {
+				menuShow();
+				int choice = scan.nextInt();
+				scan.nextLine();
 		
 			
-			try {
 				switch(choice) {
 				case 1:
 					//계좌의 정보 입력
@@ -74,6 +74,7 @@ public class BankingSystemMain {
 			}//try 끝
 			catch (InputMismatchException e) {
 				System.out.println("메뉴는 1~7 사이의 \"정수만\" 입력해주세요");
+				scan.next();
 			}
 			catch (MenuSelectException e) {
 				System.out.println("메뉴는 1~7사이 정수를 입력하세요");
@@ -82,3 +83,16 @@ public class BankingSystemMain {
 	} //main 끝
  //class 끝
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

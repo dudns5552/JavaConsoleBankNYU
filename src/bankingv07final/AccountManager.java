@@ -54,7 +54,7 @@ public class AccountManager {
 			
 			
 			System.out.print("계좌번호 : "); mNum = scan.nextLine();
-			if(mNum.matches(".*[a-zA-Z가-힣.-].*")) {
+			if(mNum.matches(".*[a-zA-Z가-힣ㄱ-ㅎ.-].*")) {
 				System.out.println("계좌번호는 양의 정수만 입력해주세요");
 				return;
 			}
@@ -98,7 +98,8 @@ public class AccountManager {
 							mNum, mOwner, mBalance, mInt, mCredit);
 				}
 				else {
-					System.out.println("잘못된 입력입니다.");
+					System.out.println("잘못된 입력입니다. 계좌등록을"
+							+ "취소합니다.");
 					return;
 				}
 			} //신용신뢰계좌 끝
@@ -164,6 +165,7 @@ public class AccountManager {
 		}
 		catch (InputMismatchException e) {
 			System.out.println("입금액은 숫자로 입력해주세요.");
+			scan.nextLine();
 			return;
 		}
 		
@@ -261,6 +263,7 @@ public class AccountManager {
 		}
 		catch (InputMismatchException e) {
 			System.out.println("출금액은 \"숫자로\" 입력해주세요.");
+			scan.nextLine();
 			return;
 		}
 	}//withdraw 끝
@@ -336,6 +339,7 @@ public class AccountManager {
 		}
 		catch (InputMismatchException e) {
 			System.out.println("저장옵션은 1또는 2를 입력해주세요.");
+			scan.nextLine();
 			return;
 		}
 		catch (Exception e) {}
@@ -343,3 +347,21 @@ public class AccountManager {
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

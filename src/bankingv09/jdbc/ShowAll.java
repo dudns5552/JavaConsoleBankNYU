@@ -26,13 +26,12 @@ public class ShowAll extends MyConnection {
 				while(rs.next()) {
 					String idx = rs.getString(1);
 					String accnum = rs.getString(2);
-					String balance = rs.getString(3);
-					/* 날짜를 문자형으로 추출하면 시간까지 출력되므로
-					날짜부분만 잘라서 출력한다. */
-					String inter = rs.getString(4);
+					String name = rs.getString(3);
+					String balance = rs.getString(4);
+					String inter = rs.getString(5);
 					
-					System.out.printf("%s %s %s %s\n",
-							idx, accnum, balance, inter);
+					System.out.printf("%s %s %s %s %s\n",
+							idx, accnum, name, balance, inter);
 				}
 		}
 		catch (SQLException e) {
